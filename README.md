@@ -3,15 +3,6 @@ DESARROLLO DE PAC DE ENTORNO DE DESARROLLO...
 ESTA TAREA CONTIENTE LAS SIGUIENTES SOLICITUDES ELABORADO EN JUNIO DE 2024
 2S 2022/2023
 
-1. Normativa
-   Requisitos necesarios que debe cumplir el trabajo:
-   • La PAC de Desarrollo se debe entregar únicamente a través de CodeGrade (encontraréis el enlace en la tarea), y dentro de los plazos (día y hora máximo) establecidos en la guía didáctica. En caso de no cumplir dichos plazos, no se podrán enviar de forma posterior. No se evaluarán entregas por mensajes o comentarios.
-   • La entrega se hará en un único fichero .zip que contendrá en el directorio raíz (sin subcarpetas) los siete ficheros que se describen abajo: articulos.php, conexion.php, consultas.php, formarticulos.php, funciones.php, index.php y usuarios.php
-   • Para realizar esta actividad se debe consultar los contenidos del material didáctico y hacer uso de fuentes bibliográficas y recursos web.
-   • Cualquier código detectado como plagio supondrá un suspenso (0) para todas las partes implicadas, independientemente de la fecha de entrega. La plataforma CodeGrade cuenta con un detector de plagio preciso y que arroja un informe vinculante que se tendrá en cuenta a la hora de anular dos o más trabajos. En ningún caso se corregirán aquellos trabajos involucrados en una detección de plagio.
-   • La entrega del archivo en la plataforma es responsabilidad del alumno/a, debe asegurarse de haber subido en la plataforma el fichero correcto, ya que en ningún caso el profesor revisará el contenido antes del periodo de corrección.
-   • El programa debe realizarse con PHP y HTML exclusivamente. También contendrá las sentencias SQL necesarias para llevar a cabo la gestión de la base de datos.
-   • La calificación oscilará entre 0 y 10. Si no se entrega una PAC de desarrollo, la calificación equivaldrá a un 0. • El/La alumno/a es conocedor de esta normativa en el momento de la entrega de la PAC de desarrollo.
 2. Enunciado de la actividad
    Esta actividad consiste en la realización de una aplicación web con las siguientes características:
    2.1 Descripción
