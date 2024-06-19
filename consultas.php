@@ -9,19 +9,19 @@ require_once 'conexion.php';
 		}else{
 			if(filter_var($correo,FILTER_VALIDATE_EMAIL)){
 				$con = new Conexion();
-				$sql = "SELECT id FROM user WHERE email = ? AND full_name = ?";
+				$sql = "SELECT enabled FROM user WHERE email = ? AND full_name = ?";
                 $stmt = $con->crearConexion()->prepare($sql);
 				$stmt->bindParam(1,$correo);
 				$stmt->bindParam(2,$nombre);
 				$stmt->execute();
 				$con->cerrarConexion();
-				$row = $stmt->fetch()["id"];
+				$row = $stmt->fetch()["enabled"];
 				if($row == 0){
-					return "na";
+					return "registrado";
 				}else if($row == 1){
-					return "a";
+					return "autorizado";
 				}else{
-					return false;
+					return "no autorizado";
 				}
 			}return false;
 		}
@@ -64,8 +64,24 @@ require_once 'conexion.php';
 	}
 
 
-	function cambiarPermisos() {
+	function cambiarPermisos():bool {
+	try{
+		$con = new Conexion();
+		$sql = "UPDATE user
+		SET enabled = CASE
+			WHEN enabled = 1 THEN 0
+			WHEN enabled = 0 THEN 1
+			ELSE enabled
+		END";
+		$stmt=$con->crearConexion()->prepare($sql);
+		$stmt->execute();
+		return true;
+	}catch(Exception $e){
+		print_r($e->getMessage());
+		return false;
+	}
 	
+
 	}
 
 
@@ -75,7 +91,17 @@ require_once 'conexion.php';
 
 
 	function getListaUsuarios() {
-
+	try{
+		$con = new Conexion();
+		$sql = "SELECT full_name, email, enabled FROM user";
+		$stmt =$con->crearConexion()->prepare($sql);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		return $rows;
+	}catch(Exception $e){
+		print_r($e->getMessage());
+	}
+     
 	}
 
 

@@ -12,11 +12,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		echo "<br> Bienvenido, ".$user. " para entrar en la seccion de usuarios pincha <a href='usuarios.php'>¡aquí!</a>";
 		break;
 	
-		case'a':
+		case'autorizado':
 				echo "<br>Hola ".$user ." pulsa para entrar en los <a href='articulos.php'>artículos</a> ";
 			break;
 	
-		case 'na':
+		case 'registrado':
 			echo "<br> Bienvenido " .$user ." no tienes permisos de acceso, no puedes acceder";
 			break;
 	

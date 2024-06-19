@@ -70,6 +70,7 @@ ESTA TAREA CONTIENTE LAS SIGUIENTES SOLICITUDES ELABORADO EN JUNIO DE 2024
    o Comprobará si el acceso a esta página se ha hecho por un usuario que tiene los permisos suficientes, comprobando la cookie creada en index.php. En caso de no tener acceso mostrará un mensaje advirtiéndole de que no tiene permisos de acceso.
    o Mostrará una tabla con los datos de todos los productos almacenados con las siguientes columnas: ID, Nombre, Coste, Precio, Categoría y Acciones.
    o Al pulsar sobre el título de cada columna (excepto Acciones), permitirá ordenar de menor a mayor el contenido de la tabla basándose en el parámetro que se ha pulsado.
+
    o En el caso de que estén los permisos de la aplicación (management) activados (campo management), aparecerán también las siguientes opciones, que no aparecerán en caso de que los permisos de la aplicación (management) estén desactivados:
    ▪ Antes del listado de productos, un enlace para añadir un producto que lleva a formarticulo.php con la opción de añadir producto. Debe llamarse a la página mediante el método GET.
    ▪ Ya en la lista de productos, un enlace junto a cada producto (en la columna Acciones) que permita editarlo y lleve a formarticulo.php. Debe llamarse a la página mediante el método GET.
@@ -93,104 +94,105 @@ ESTA TAREA CONTIENTE LAS SIGUIENTES SOLICITUDES ELABORADO EN JUNIO DE 2024
 ➢ Cierra la conexión indicada por el manejador $conexion.
 Consultas.php
 tipoUsuario($nombre, $correo)
-➢ Recibe un $nombre de usuario (full_name) y un $correo electrónico de usuario (email).
-➢ Comprobará si el usuario está registrado, y en caso de estarlo, qué permisos tiene.
-➢ Devuelve una cadena de caracteres indicando el tipo de usuario que corresponda:
-• Si corresponde con el superadmin => “superadmin”
-• Si corresponde con un usuario registrado y autorizado => “autorizado”
-• Si corresponde con un usuario registrado, pero no autorizado => “registrado”
-• Si no corresponde con ninguno que esté en la base de datos => “no registrado”
+   ➢ Recibe un $nombre de usuario (full_name) y un $correo electrónico de usuario (email).
+   ➢ Comprobará si el usuario está registrado, y en caso de estarlo, qué permisos tiene.
+   ➢ Devuelve una cadena de caracteres indicando el tipo de usuario que corresponda:
+   • Si corresponde con el superadmin => “superadmin”
+   • Si corresponde con un usuario registrado y autorizado => “autorizado”
+   • Si corresponde con un usuario registrado, pero no autorizado => “registrado”
+   • Si no corresponde con ninguno que esté en la base de datos => “no registrado”
+
 esSuperadmin($nombre, $correo)
 ➢ Recibe un $nombre de usuario (full_name) y un $correo electrónico de usuario (email).
 ➢ Comprobará si el usuario está identificado como superadmin. Devuelve un valor booleano: True, si es superadmin, False si no lo es.
+
 getListaUsuarios()
 ➢ Devuelve una tabla virtual con los datos (full_name, email, enabled) de todos los usuarios almacenados en la tabla user.
+
 getPermisos()
 ➢ Devuelve el valor almacenado en la columna management de la tabla setup.
+
 cambiarPermisos()
 ➢ Cambia el valor almacenado en la columna management de la tabla setup. Si vale 0 cambia a 1 y si vale 1 cambia a 0.
+
 getCategorias()
 ➢ Devuelve una tabla virtual con los datos (id, name) de todas las categorías almacenadas en la tabla category.
+
 getProduct($ID)
-   ➢ Recibe un $ID que corresponde al identificador de un producto.
+➢ Recibe un $ID que corresponde al identificador de un producto.
 ➢ Devuelve una tabla virtual con todos los datos que corresponden al producto cuyo identificador es $ID.
+
 getProductos($orden)
-   ➢ Recibe el $orden por el que deben ordenarse los productos.
+➢ Recibe el $orden por el que deben ordenarse los productos.
 ➢ Devuelve una tabla virtual con el contenido de todos los productos de la base de datos, ordenados por el valor de $orden. Esta tabla debe contener los siguientes valores por cada producto:
 • De la tabla product: id, name, cost, price
 • De la tabla category: name
+
 anadirProducto($nombre, $coste, $precio, $categoria)
 ➢ Recibe el $nombre, $coste, $precio e identificador de $categoría de un producto.
 ➢ Añade ese producto a la base de datos.
 ➢ Devuelve el resultado de la consulta realizada.
+
 borrarProducto($id)
-   ➢ Recibe el $identificador de un producto.
+➢ Recibe el $identificador de un producto.
 ➢ Elimina ese producto de la base de datos.
 ➢ Devuelve el resultado de la consulta realizada.
+
 editarProducto($id, $nombre, $coste, $precio, $categoria)
 ➢ Recibe el $identificación, $nombre, $coste, $precio e identificador de $categoría de un producto.
 ➢ Actualiza la información de ese producto en la base de datos.
 ➢ Devuelve el resultado de la consulta realizada.
 funciones.php
 pintaCategorias($defecto)
-   ➢ Representa en HTML las opciones para poder seleccionar las categorías de los productos según la tabla category para un input de tipo select.
-   ➢ El contenido de cada opción deberá ser el nombre (name) de la categoría y el valor asociado a la opción el identificador de la categoría (id).
-   ➢ Deberá mostrar seleccionada la opción indicada por $defecto.
+➢ Representa en HTML las opciones para poder seleccionar las categorías de los productos según la tabla category para un input de tipo select.
+➢ El contenido de cada opción deberá ser el nombre (name) de la categoría y el valor asociado a la opción el identificador de la categoría (id).
+➢ Deberá mostrar seleccionada la opción indicada por $defecto.
 pintaTablaUsuarios()
 ➢ Representa en HTML el contenido de la tabla de user indicando como encabezados Nombre (full_name), Email (email) y Autorizado (enabled).
 ➢ En aquellos casos en que el usuario esté autorizado (su valor de enabled sea igual a 1), el valor se representará en negrita (etiquetas <b> y </b>)
 pintaProductos($orden)
-   ➢ Representa en HTML la tabla con todos los productos almacenados en la tabla product, indicando como encabezados ID (id), Nombre (name), Coste (cost), Precio (price), Categoría (el valor name asociado al category_id según la tabla category) y Acciones.
-   ➢ Se mostrará el resultado ordenado según el $orden que se pasa como parámetro.
-   ➢ En cada producto, en la columna de Acciones se deberán incluir dos enlaces que permitan Editar y Borrar ese elemento. Esos enlaces utilizarán para el envío de información el método GET. Cada uno de ellos debe mostrar solamente ese texto en el enlace (Editar y Borrar respectivamente) de forma que se sepa qué hace cada enlace.
-10. Evaluación
-    La evaluación de esta actividad se realizará siguiendo la siguiente rúbrica, teniendo en cuenta que será necesario superar los requisitos de un nivel inferior para optar a la calificación del superior:
-11. Acceso como usuario no registrado (0,5)
-12. Acceso como usuario con credenciales incorrectas (1)
-13. Acceso como usuario con credenciales correctas, pero no está autorizado (1)
-14. Acceso como usuario superadmin al panel de usuarios y cambio de permisos (1)
-15. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación desactivados y ordenando los productos por el nombre del producto (1,5)
-16. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación activados y añadir un nuevo producto (2)
-17. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación activados y editar un producto existente (1,5)
-18. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación activados y borrar un producto existente (1,5)
-    Criterios Pruebas Puntos
-    Acceso como usuario no registrado
-    Usuario y correo que no aparecen en base de datos
-    0.2
-    Intentar entrar en las páginas sin hacer login
-    0.3
-    Acceso con credenciales incorrectas
-    Acceso con nombre correcto pero email incorrecto
-    0.3
-    Acceso con nombre incorrecto pero email correcto
-    0.3
-    Acceso con nombre y email correctos pero de usuarios distintos
-    0.4
-    Acceso como usuario registrado pero no autorizado
-    Login correcto pero aviso de que no tiene permisos
-    0.4
-    Intentar entrar en las páginas tras hacer login pero sin permisos
-    0.6
-    Acceso como superadmin y cambio de permisos de la aplicación (management)
-    Acceso con usuario superadmin.
-    0.2
-    Acceso correcto a la página de usuarios y cambio de permisos para habilitar o deshabilitar el manejo de productos
-    0.8
-    Acceso como usuario autorizado al panel de productos con los permisos desactivados y ordenando los productos
-    Acceso con usuario registrado y autorizado
-    0.2
-    Acceso correcto a la página de productos con los permisos inhabilitados
-    0.6
-    Acceso correcto a la página de productos ordenados
-    0.7
-    Acceso como usuario autorizado los productos y añadir uno nuevo
-    Acceso al listado y al formulario de artículos, correctamente implementado
-    0.5
-    Añadimos un nuevo producto
-    1.5
-    Acceso como usuario autorizado los productos y editar uno
-    Acceso al listado y al formulario de artículos y editamos uno
-    1.5
-    Acceso como usuario autorizado los productos y borrar uno
-    Acceso al listado y al formulario de artículos y borramos uno
-    1.5
+➢ Representa en HTML la tabla con todos los productos almacenados en la tabla product, indicando como encabezados ID (id), Nombre (name), Coste (cost), Precio (price), Categoría (el valor name asociado al category_id según la tabla category) y Acciones.
+➢ Se mostrará el resultado ordenado según el $orden que se pasa como parámetro.
+➢ En cada producto, en la columna de Acciones se deberán incluir dos enlaces que permitan Editar y Borrar ese elemento. Esos enlaces utilizarán para el envío de información el método GET. Cada uno de ellos debe mostrar solamente ese texto en el enlace (Editar y Borrar respectivamente) de forma que se sepa qué hace cada enlace. 10. Evaluación
+La evaluación de esta actividad se realizará siguiendo la siguiente rúbrica, teniendo en cuenta que será necesario superar los requisitos de un nivel inferior para optar a la calificación del superior: 11. Acceso como usuario no registrado (0,5) 12. Acceso como usuario con credenciales incorrectas (1) 13. Acceso como usuario con credenciales correctas, pero no está autorizado (1) 14. Acceso como usuario superadmin al panel de usuarios y cambio de permisos (1) 15. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación desactivados y ordenando los productos por el nombre del producto (1,5) 16. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación activados y añadir un nuevo producto (2) 17. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación activados y editar un producto existente (1,5) 18. Acceso como usuario autorizado al panel de productos con los permisos de la aplicación activados y borrar un producto existente (1,5)
+Criterios Pruebas Puntos
+Acceso como usuario no registrado
+Usuario y correo que no aparecen en base de datos
+0.2
+Intentar entrar en las páginas sin hacer login
+0.3
+Acceso con credenciales incorrectas
+Acceso con nombre correcto pero email incorrecto
+0.3
+Acceso con nombre incorrecto pero email correcto
+0.3
+Acceso con nombre y email correctos pero de usuarios distintos
+0.4
+Acceso como usuario registrado pero no autorizado
+Login correcto pero aviso de que no tiene permisos
+0.4
+Intentar entrar en las páginas tras hacer login pero sin permisos
+0.6
+Acceso como superadmin y cambio de permisos de la aplicación (management)
+Acceso con usuario superadmin.
+0.2
+Acceso correcto a la página de usuarios y cambio de permisos para habilitar o deshabilitar el manejo de productos
+0.8
+Acceso como usuario autorizado al panel de productos con los permisos desactivados y ordenando los productos
+Acceso con usuario registrado y autorizado
+0.2
+Acceso correcto a la página de productos con los permisos inhabilitados
+0.6
+Acceso correcto a la página de productos ordenados
+0.7
+Acceso como usuario autorizado los productos y añadir uno nuevo
+Acceso al listado y al formulario de artículos, correctamente implementado
+0.5
+Añadimos un nuevo producto
+1.5
+Acceso como usuario autorizado los productos y editar uno
+Acceso al listado y al formulario de artículos y editamos uno
+1.5
+Acceso como usuario autorizado los productos y borrar uno
+Acceso al listado y al formulario de artículos y borramos uno
+1.5
