@@ -1,3 +1,31 @@
+<?php
+if($_SERVER['REQUEST_METHOD']=='POST'){
+	include_once 'consultas.php';
+	$user = htmlspecialchars($_POST['full_name']);
+	$correo = $_POST['email'];
+	$userType= tipoUsuario($user,$correo);
+    
+	setcookie("userData",$userType, time()+84600);
+
+	switch($userType){
+		case 'super':
+		echo "<br> Bienvenido, ".$user. " para entrar en la seccion de usuarios pincha <a href='usuarios.php'>¡aquí!</a>";
+		break;
+	
+		case'a':
+				echo "<br>Hola ".$user ." pulsa para entrar en los <a href='articulos.php'>artículos</a> ";
+			break;
+	
+		case 'na':
+			echo "<br> Bienvenido " .$user ." no tienes permisos de acceso, no puedes acceder";
+			break;
+	
+		default: 
+		echo "usuario no registrado";
+		break;
+	   }
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +35,7 @@
 </head>
 <body>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 <label for="usuario"> Usuario: </label>
 <input type="text" name="full_name" id="usuario"><br>
 <br>
@@ -16,34 +44,5 @@
 <br>
 <input type="submit" value="Enviar">
 
-<?php
-if($_SERVER['REQUEST_METHOD']=='POST'){
-	include("consultas.php");
-	$user = $_POST['full_name'];
-	$correo = $_POST['email'];
-	$userType= tipoUsuario($user,$correo);
-	//$esAdmin = esSuperadmin($user, $correo);
-
-   setcookie("userData",$userType, time()+84600);
-  
-   switch($userType){
-	case 'super_user':
-	echo "<br> Bienvenido, ".$user. " para entrar en la seccion de usuarios pincha <a href='usuarios.php'>¡aquí!</a>";
-	break;
-
-	case'autorizado':
-			echo "<br>Hola ".$user ." pulsa para entrar en los <a href='articulos.php'>artículos</a> ";
-		break;
-
-	case 'registrado':
-		echo "<br> Bienvenido " .$user ." no tienes permisos de acceso, no puedes acceder";
-		break;
-
-	default: 
-	echo "usuario no registrado";
-	break;
-   }
-}
-?>
 </body>
 </html>
