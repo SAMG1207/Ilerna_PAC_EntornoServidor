@@ -1,5 +1,5 @@
 <?php 
-  include_once 'consultas.php';
+  include_once 'funciones.php';
   $_SERVER["REQUEST_METHOD"]==="POST"?cambiarPermisos():null;
 ?>
 <!DOCTYPE html>
@@ -14,29 +14,7 @@
     if(!isset($_COOKIE['userData']) || $_COOKIE['userData']!='super'){
        echo"<p>No tiene permisos de acceso a esta página <a href = 'index.php'> Volver </a></p>";
     }else{
-      
-        $usuarios = getListaUsuarios();
-        $tabla = "<table>";
-        $tabla .="<tr>";
-        $tabla .="<td>Nombre</td>";
-        $tabla .="<td>Email</td>";
-        $tabla .="<td>Autorizado</td>";
-        $tabla .="</tr>";
-        foreach($usuarios as $usuario){
-        $tabla.="<tr>";
-        if($usuario["enabled"]==1){
-            $tabla.="<td><b>".$usuario["full_name"]."</b></td>";
-            $tabla.="<td><b>".$usuario["email"]."</b></td>";
-            $tabla.="<td><b>".$usuario["enabled"]."</b></td>";
-        }else{
-            $tabla.="<td>".$usuario["full_name"]."</td>";
-            $tabla.="<td>".$usuario["email"]."</td>";
-            $tabla.="<td>".$usuario["enabled"]."</td>";
-        }
-        $tabla.="</tr>";
-        }
-        $tabla.="</table>";
-        echo $tabla;
+      pintaTablaUsuarios();
         
     } 
     
